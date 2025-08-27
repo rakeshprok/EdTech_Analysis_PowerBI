@@ -1,4 +1,10 @@
-# 🎓 EdTech Courses Analysis – Power BI Project  
+# 🎓 EdTech Courses Analysis – Power BI Project 
+## Project at a Glance  
+
+| **What I Did** | **Why It Matters** | **How I Did It** | **Business Outcomes** |
+|----------------|--------------------|------------------|-----------------------|
+| Built an interactive Power BI dashboard analyzing 5,000+ EdTech courses across platforms. | Platforms need to know what courses, formats, and accessibility features drive engagement. | Power Query (cleaning, transformations), DAX (aggregations, rankings), visuals (slicers, drilldowns, word cloud). | Clear actions for Product (launch mix), Marketing (localization), Content Strategy (skills & instructors), and Ops (accessibility ROI). |
+
 
 ## Introduction  
 The EdTech industry is growing faster than ever, with thousands of online courses competing for learners’ attention. For a platform, it’s not enough to just host courses — you need to know **which courses resonate, what skills are in demand, and how factors like language or duration affect enrollments**.  
@@ -11,7 +17,7 @@ In this project, I took on the role of a data analyst at an EdTech company. My g
   <li>Highlight top skills and instructors that deserve investment.</li>
 </ul>  
 
-To do this, I built an <b>interactive Power BI dashboard</b> from a raw dataset containing thousands of online courses across platforms like Coursera, FutureLearn, and Simplilearn. The end result wasn’t just a dashboard — it was a decision-making tool.  
+To do this, I built an <b>interactive Power BI dashboard</b> from a raw dataset containing thousands of online courses across platforms like Coursera, FutureLearn, and Simplilearn. My objective wasn’t just “pretty charts”—it was to surface decisions the team could take next month: what to launch, where to localize, whom to feature, and whether accessibility spend pays off.
 
 ---
 
@@ -42,6 +48,100 @@ Instead of just looking at columns, I asked myself: <i>How can these fields answ
 By framing data this way, I turned attributes into <b>business levers</b> that a product or strategy team would care about.  
 
 ---
+<!-- =========================
+     3) HOW I WORKED
+========================= -->
+<section id="how-i-worked">
+  <h2>3) How I worked (Power Query &rarr; Model &rarr; Visuals)</h2>
+
+  <!-- A) DATA PREP -->
+  <h3>A) Data preparation (Power Query)</h3>
+  <ul>
+    <li>Profiled data quality to see valid / error / blank distributions.</li>
+    <li>Removed errors, duplicates, and blank rows in bulk; dropped 100% empty columns.</li>
+    <li>Parsed ratings from text (<em>&ldquo;4.8 stars&rdquo; &rarr; 4.8</em>) using <strong>Text Before Delimiter</strong>, then enforced numeric types.</li>
+    <li>Standardized course duration so comparisons weren&rsquo;t biased by mixed units.</li>
+    <li>Ensured key slicer fields (e.g., <strong>Category</strong>) contained no nulls.</li>
+  </ul>
+  <p>
+    <em><strong>Business lens:</strong> Clean, consistent columns prevent false trends. Enforcing non-null slicers ensures decision-makers can reliably filter by the dimensions they care about (like category) without gaps.</em>
+  </p>
+
+  <!-- B) MODELING CUES -->
+  <h3>B) Modeling cues</h3>
+  <ul>
+    <li>Used a single-table analysis for this snapshot with focused measures: <em>Avg Views</em>, <em>Avg Rating</em>, <em>Courses Count</em>, and <em>Instructor Rank</em>.</li>
+    <li>Designed slicers and drill paths around the <strong>category &rarr; subcategory &rarr; language</strong> storyline the business requested.</li>
+  </ul>
+
+  <!-- C) VISUAL DESIGN -->
+  <h3>C) Visual design &amp; interactions</h3>
+  <ul>
+    <li><strong>Category slicer</strong> as the global control (everything updates by subject).</li>
+    <li><strong>Course Type &times; Category</strong> (stacked bar + ribbon) to see format tilt per subject.</li>
+    <li><strong>Avg Views by Subcategory &rarr; Language</strong> (drill down) to localize marketing.</li>
+    <li><strong>Language distribution</strong> to size localization opportunities.</li>
+    <li><strong>Skills word cloud</strong> (custom visual) to spot content themes (with a data-prep fix so compound skills don&rsquo;t overcount).</li>
+    <li><strong>Top-3 instructors by rating</strong> for partnership and storefront decisions.</li>
+    <li><strong>Duration vs Views</strong> and <strong>Subtitles vs Views</strong> to test design and accessibility hypotheses.</li>
+  </ul>
+  <p>
+    <em><strong>Business lens:</strong> Each visual answers a &ldquo;so-what&rdquo; that maps to a decision&mdash;launch mix, ad targeting, instructor promotion, or subtitle budget.</em>
+  </p>
+</section>
+
+<!-- =========================
+     4) WHAT I FOUND
+========================= -->
+<section id="findings">
+  <h2>4) What I found (and why it matters)</h2>
+
+  <!-- A -->
+  <article>
+    <h3>A. Format strategy (Course Type &times; Category)</h3>
+    <ul>
+      <li>Some subjects skew toward <strong>specializations</strong>; others convert better with <strong>short projects</strong> or <strong>professional certificates</strong>.</li>
+      <li><strong>Decision:</strong> Align the release calendar to each subject&rsquo;s winning format to lift conversions.</li>
+    </ul>
+  </article>
+
+  <!-- B -->
+  <article>
+    <h3>B. Localization focus (Avg Views by Subcategory &rarr; Language)</h3>
+    <ul>
+      <li>Engagement shifts meaningfully at the <strong>language</strong> level once you drill down.</li>
+      <li><strong>Decision:</strong> Localize the top 1&ndash;2 subcategories per subject first (fast ROI) instead of broad translation.</li>
+    </ul>
+  </article>
+
+  <!-- C -->
+  <article>
+    <h3>C. Skill themes (Word Cloud)</h3>
+    <ul>
+      <li>Recurrent skills reveal <strong>content gaps</strong> the catalog can fill for quick wins.</li>
+      <li>I fixed a common pitfall by cleaning spaces in compound skills, so the cloud ranks true skills (e.g., <code>Data_Visualization</code> instead of inflating the word &ldquo;Data&rdquo;).</li>
+      <li><strong>Decision:</strong> Prioritize development on the top skill clusters visible in current high-view subjects.</li>
+    </ul>
+  </article>
+
+  <!-- D -->
+  <article>
+    <h3>D. Accessibility ROI (Subtitles vs Views)</h3>
+    <ul>
+      <li>The dashboard explores whether courses with <strong>more subtitle languages</strong> see higher views.</li>
+      <li><strong>Decision:</strong> Run a controlled rollout&mdash;add subtitles for high-intent geos in one subject and measure the lift before scaling.</li>
+    </ul>
+  </article>
+
+  <!-- E -->
+  <article>
+    <h3>E. Instructional design (Duration vs Views)</h3>
+    <ul>
+      <li>Tested whether <strong>shorter courses</strong> pull more first-time enrollments in certain subjects.</li>
+      <li><strong>Decision:</strong> A/B test <em>micro-course</em> pilots where long form underperforms.</li>
+    </ul>
+  </article>
+</section>
 
 ## Dashboard Highlights  
 
@@ -73,17 +173,6 @@ This dashboard goes beyond pretty visuals. It’s a <b>decision-support tool</b>
 In short, it turns raw course data into <b>clear, actionable strategy</b> — helping optimize portfolios, grow engagement, and improve returns.  
 
 ---
-
-## My Learnings  
-
-This project helped me grow in two key areas:  
-
-**Technical skills**  
-<ul>
-  <li>Power Query transformations (cleaning, shaping, and standardizing real-world messy data).</li>
-  <li>Writing DAX measures for aggregations and rankings.</li>
-  <li>Building intuitive visuals with slicers, drilldowns, and word clouds.</li>
-</ul>  
 
 **Business thinking**  
 <ul>
